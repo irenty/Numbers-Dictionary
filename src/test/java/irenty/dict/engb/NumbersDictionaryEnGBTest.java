@@ -31,5 +31,18 @@ public class NumbersDictionaryEnGBTest {
         };
     }
 
+    @Test(dataProvider = "outOfRangeNumbersProvider", expectedExceptions = IllegalArgumentException.class)
+    public void testPrintOutOfRange(int number) {
+        testedDict.print(number);
+    }
+
+    @DataProvider(name="outOfRangeNumbersProvider")
+    public Object[][] getOutOfRangeScenario() {
+        return new Object[][] {
+                { -1},
+                { 1000000000}
+        };
+    }
+
 
 }
