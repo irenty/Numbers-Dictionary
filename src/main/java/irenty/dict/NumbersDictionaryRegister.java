@@ -1,6 +1,10 @@
 package irenty.dict;
 
+import irenty.dict.engb.IntegerSplitter;
 import irenty.dict.engb.NumbersDictionaryEnGB;
+import irenty.dict.engb.ThreeDigitsNumberDictionaryEnGB;
+import irenty.dict.translations.Translations;
+import irenty.dict.translations.TranslationsEnGB;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -13,9 +17,12 @@ import java.util.Map;
 public class NumbersDictionaryRegister {
 
     private static final Map<Locale, NumbersDictionary> DICTS = new HashMap<Locale, NumbersDictionary>();
-
     static {
-        DICTS.put(new Locale("en", "GB"), new NumbersDictionaryEnGB());
+        Translations translations = new TranslationsEnGB();
+        ThreeDigitsNumberDictionaryEnGB threeDigitsNumberDictionaryEnGB = new ThreeDigitsNumberDictionaryEnGB(translations);
+        IntegerSplitter integerSplitter = new IntegerSplitter();
+
+        DICTS.put(new Locale("en", "GB"), new NumbersDictionaryEnGB(threeDigitsNumberDictionaryEnGB, integerSplitter));
     }
 
     /**

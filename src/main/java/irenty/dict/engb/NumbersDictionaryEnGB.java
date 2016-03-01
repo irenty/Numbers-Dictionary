@@ -12,8 +12,13 @@ import java.util.List;
  */
 public final class NumbersDictionaryEnGB implements NumbersDictionary {
 
-    private ThreeDigitsNumberDictionaryEnGB threeDigitsNumberDictionaryEnGB = new ThreeDigitsNumberDictionaryEnGB();
-    private IntegerSplitter integerSplitter = new IntegerSplitter();
+    private ThreeDigitsNumberDictionaryEnGB threeDigitsNumberDictionaryEnGB;
+    private IntegerSplitter integerSplitter;
+
+    public NumbersDictionaryEnGB(ThreeDigitsNumberDictionaryEnGB threeDigitsNumberDictionaryEnGB, IntegerSplitter integerSplitter) {
+        this.threeDigitsNumberDictionaryEnGB = threeDigitsNumberDictionaryEnGB;
+        this.integerSplitter = integerSplitter;
+    }
 
     public String print(int number) {
         if (number < 0 || number > 999999999) {

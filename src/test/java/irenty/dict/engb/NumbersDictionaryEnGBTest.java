@@ -1,6 +1,8 @@
 package irenty.dict.engb;
 
 
+import irenty.dict.translations.Translations;
+import irenty.dict.translations.TranslationsEnGB;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -8,7 +10,11 @@ import static org.testng.Assert.assertEquals;
 
 public class NumbersDictionaryEnGBTest {
 
-    private final NumbersDictionaryEnGB testedDict = new NumbersDictionaryEnGB();
+    private final Translations translations = new TranslationsEnGB();
+    private final ThreeDigitsNumberDictionaryEnGB threeDigitsNumberDictionaryEnGB = new ThreeDigitsNumberDictionaryEnGB(translations);
+    private final IntegerSplitter integerSplitter = new IntegerSplitter();
+
+    private final NumbersDictionaryEnGB testedDict = new NumbersDictionaryEnGB(threeDigitsNumberDictionaryEnGB, integerSplitter);
 
     @Test(dataProvider = "numbersProvider")
     public void testPrint(int number, String name) {

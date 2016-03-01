@@ -1,5 +1,7 @@
 package irenty.dict.engb;
 
+import irenty.dict.translations.Translations;
+import irenty.dict.translations.TranslationsEnGB;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -7,7 +9,8 @@ import static org.testng.Assert.*;
 
 public class ThreeDigitsNumbersDictionaryEnGBTest {
 
-    private ThreeDigitsNumberDictionaryEnGB testedDict = new ThreeDigitsNumberDictionaryEnGB();
+    private Translations translations = new TranslationsEnGB();
+    private ThreeDigitsNumberDictionaryEnGB testedDict = new ThreeDigitsNumberDictionaryEnGB(translations);
 
     @Test(dataProvider = "numbersProvider")
     public void testPrint(ThreeDigitsNumberGroup number, String name) {
