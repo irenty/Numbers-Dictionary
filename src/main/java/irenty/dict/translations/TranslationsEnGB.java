@@ -29,4 +29,8 @@ public class TranslationsEnGB implements Translations {
         return "";
     }
 
+    public String translate(Word word) {
+        return word == Word.AND ? "and" : null;
+    }
+
 }

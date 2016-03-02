@@ -2,9 +2,12 @@ package irenty.dict.engb;
 
 
 import irenty.dict.NumbersDictionary;
+import irenty.dict.printers.PrinterChain;
+import irenty.dict.translations.Translations;
+import irenty.dict.translations.TranslationsEnGB;
 import irenty.dict.utils.Joiner;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,28 +15,19 @@ import java.util.List;
  */
 public final class NumbersDictionaryEnGB implements NumbersDictionary {
 
-    private ThreeDigitsNumberDictionaryEnGB threeDigitsNumberDictionaryEnGB;
-    private IntegerSplitter integerSplitter;
-
-    public NumbersDictionaryEnGB(ThreeDigitsNumberDictionaryEnGB threeDigitsNumberDictionaryEnGB, IntegerSplitter integerSplitter) {
-        this.threeDigitsNumberDictionaryEnGB = threeDigitsNumberDictionaryEnGB;
-        this.integerSplitter = integerSplitter;
-    }
+    private final Translations translations = new TranslationsEnGB();
+    private final PrintersChainBuilder printersChainBuilder = new PrintersChainBuilder(translations);
 
     public String print(int number) {
         if (number < 0 || number > 999999999) {
             throw new IllegalArgumentException("Number is out of supported range of [0, 999999999]: " + number);
         }
-        // optimization for numbers 1 to 19
-        if (number < 20) {
-            return threeDigitsNumberDictionaryEnGB.getForNumberUnder20(number);
-        }
 
-        List<ThreeDigitsNumberGroup> threeDigGroupList = integerSplitter.splitByThousands(number);
-        List<String> tokens = new ArrayList<String>();
-        for (ThreeDigitsNumberGroup threeDigGroup : threeDigGroupList) {
-            tokens.add(threeDigitsNumberDictionaryEnGB.print(threeDigGroup));
-        }
-        return Joiner.on(' ').join(tokens);
+        PrinterChain printerChain = printersChainBuilder.build(number);
+
+        List<String> words = new LinkedList<String>();
+        printerChain.process(words);
+
+        return Joiner.on(' ').join(words);
     }
 }
